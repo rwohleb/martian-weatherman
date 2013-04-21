@@ -1,0 +1,293 @@
+/**
+ *  This file is part of Martian Weatherman.
+ *
+ *  Martian Weatherman is free software: you can redistribute it and/or modify
+ *  it under the terms of the GNU General Public License as published by
+ *  the Free Software Foundation, either version 3 of the License, or
+ *  (at your option) any later version.
+ *
+ *  Martian Weatherman is distributed in the hope that it will be useful,
+ *  but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *  GNU General Public License for more details.
+ *
+ *  You should have received a copy of the GNU General Public License
+ *  along with Martian Weatherman.  If not, see <http://www.gnu.org/licenses/>.
+ */
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* make transparent link selection, adjust last value opacity 0 to 1.0 */
+}
+
+body {
+    -webkit-touch-callout: none;                /* prevent callout to copy image, etc when tap to hold */
+    -webkit-text-size-adjust: none;             /* prevent webkit from resizing text to fit */
+    -webkit-user-select: none;                  /* prevent copy paste, to allow, change 'none' to 'text' */
+    /*
+    background-color: #E4E4E4;
+    background-image: linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image: -webkit-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image: -ms-linear-gradient(top, #A7A7A7 0%, #E4E4E4 51%);
+    background-image: -webkit-gradient(
+        linear,
+        left top,
+        left bottom,
+        color-stop(0, #A7A7A7),
+        color-stop(0.51, #E4E4E4)
+    );
+    */
+   /*
+    background-attachment: fixed;
+    background: url(../img/bg_iphone.png) no-repeat;
+    background-size: 100%;
+
+    font-family: 'HelveticaNeue-Light', 'HelveticaNeue', Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    height: 100%;
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+    height: 100%;
+    min-height: 100%;
+    */
+
+    background: url(../img/bg_iphone.png) no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+}
+
+.ui-page .ui-body-c {
+    background: url(../img/bg_iphone.png) no-repeat;
+    background-attachment: fixed;
+    background-size: 100%;
+}
+
+.clear {
+    clear: both;
+}
+
+/* Portrait layout (default) */
+.app {
+}
+
+/* Landscape layout (with min-width) */
+@media screen and (min-aspect-ratio: 1/1) and (min-width:400px) {
+    .app {
+    }
+}
+
+#inner {
+    /*position: relative;*/
+}
+
+#loading {
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    color: #FFFFFF;
+    background-color: #333333;
+    font-size: 14px;
+    text-align: center;
+    display: block;
+
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    width: 200px;
+    margin: 0 0 0 -100px;
+    padding: 10px;
+}
+
+#offline {
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    color: #FFFFFF;
+    background-color: #333333;
+    font-size:14px;
+    text-align: center;
+    margin: 0px 30px;
+    padding: 2px 0px;
+    display: none;
+
+    position: absolute;
+    left: 50%;
+    top: 75%;
+    width: 200px;
+    margin: 0 0 0 -100px;
+    padding: 10px;
+}
+
+#data {
+    font-size: 12px;
+    display: none;
+
+    width: 280px;
+    position: relative;
+    left: 50%;
+    top: 5%;
+    margin: 20px 0 0 -150px;
+    padding: 10px;
+}
+
+#today {
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    color: #FFFFFF;
+    background-color: #333333;
+    background-color: rgba(51, 51, 51, 0.5);
+    padding: 10px;
+    position: relative;
+}
+
+#today .sol-wrapper {
+    font-size: 24px;
+    font-weight: bold;
+    float: left;
+}
+
+#today .atmo-opacity-string {
+    font-size: 15px;
+    font-weight: bold;
+    float: left;
+}
+
+#today .atmo-opacity-image {
+    float: left;
+    width: 40px;
+    height: 40px;
+    margin-right: 20px;
+    float: left;
+}
+
+#today .max-temp-wrapper,
+#today .min-temp-wrapper {
+    float: left;
+    width: 90px;
+    height: 40px;
+    font-size: 18px;
+    text-align: center;
+    float: left;
+}
+
+#today .max-temp-wrapper {
+    font-weight: bold;
+    margin-right: 10px;
+    color: #FF9696;
+}
+
+#today .min-temp-wrapper {
+    color: #96C7FF;
+}
+
+#today .wind-wrapper,
+#today .pressure-wrapper,
+#today .abs-humidity-wrapper,
+#today .sunrise-wrapper,
+#today .sunset-wrapper,
+#today .ls-wrapper,
+#today .terrestrial-date-wrapper {
+    margin-top: 10px;
+    clear: both;
+    font: 12px;
+    line-height: 8px;
+    float: left;
+}
+
+#refresh {
+    width: 44px;
+    height: 44px;
+    background: url(../img/refresh.png) no-repeat;
+    border: 0;
+
+    position: absolute;
+    right: 0px;
+    bottom: 0px;
+}
+
+#week {
+    border-radius: 10px;
+    -webkit-border-radius: 10px;
+    color: #FFFFFF;
+    background-color: #333333;
+    background-color: rgba(51, 51, 51, 0.5);
+    padding: 5px 10px;
+    position: relative;
+    margin-top: 20px;
+}
+
+#week .sol-record {
+    float: left;
+    width: 64px;
+    height: 95px;
+    text-align: center;
+}
+
+#week .temp-wrapper{
+    font-size: 11px;
+}
+
+#week .max-temp-wrapper {
+    color: #FF9696;
+}
+
+#week .min-temp-wrapper {
+    color: #96C7FF;
+}
+
+/* Handle Retina displays */
+@media  only screen and (-webkit-min-device-pixel-ratio: 1.5),
+        only screen and (-o-min-device-pixel-ratio: 3/2),
+        only screen and (min--moz-device-pixel-ratio: 1.5),
+        only screen and (min-device-pixel-ratio: 1.5) {
+    body {
+        background: url(../img/bg_iphone@2x.png) no-repeat;
+        background-size: 320px 480px;
+    }
+    #refresh {
+        background: url(../img/refresh@2x.png) no-repeat;
+        background-size: 44px 44px;
+    }
+}
+/* iPhone 5 */
+@media only screen and (-webkit-device-pixel-ratio: 1.5),
+       only screen and (min-resolution: 192dpi) {
+    body {
+        background: url(../img/bg_iphone_568h@2x.png) no-repeat;
+        background-size: 320px 568px;
+    }
+}
+
+@keyframes fadeout {
+    from { opacity: 1.0; }
+    to { opacity: 0.0; }
+}
+
+@-webkit-keyframes fadeout {
+    from { opacity: 1.0; }
+    to { opacity: 0.0; }
+}
+
+@keyframes fadein {
+    from { opacity: 0.0; }
+    to { opacity: 1.0; }
+}
+
+@-webkit-keyframes fadein {
+    from { opacity: 0.0; }
+    to { opacity: 1.0; }
+}
+
+@keyframes fadeoutin {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+
+@-webkit-keyframes fadeoutin {
+    from { opacity: 1.0; }
+    50% { opacity: 0.4; }
+    to { opacity: 1.0; }
+}
+
+.blink {
+    animation: fadeoutin 3000ms infinite;
+    -webkit-animation: fadeoutin 3000ms infinite;
+}

@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<!--
+    This file is part of Martian Weatherman.
+
+    Martian Weatherman is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    Martian Weatherman is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with Martian Weatherman.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.3.1.min.css" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <title>Martian Weatherman</title>
+    </head>
+    <body>
+        <div id="page-today" data-role="page">
+            <div id="title" data-role="header">
+                <h1 style="text-align:left; margin-left:10px;">Martian Weatherman</h1>
+                <a href="#panel-settings" class="ui-btn-right" data-role="button" data-inline="true" data-mini="true" data-icon="gear" data-iconpos="notext">Settings</a>
+            </div><!-- /header -->
+            <div id="inner" data-role="content">
+                <div id="loading" class="blink">
+                    Loading...
+                </div>
+                <div id="offline" class="blink">
+                    Martian Weatherman requires an Internet connection.
+                </div>
+                <div id="data">
+                    <div id="today">
+                        <div id="sol-record-0" class="sol-record">
+                            <div class="sol-wrapper clear">
+                                Sol <span class="sol"></span> <em>(<span class="season"></span>)</em>
+                            </div>
+
+                            <div class="atmo-opacity-string clear"></div>
+                            <div class="clear">
+                                <div class="atmo-opacity-image"><img src="img/atmo_null.png" /></div>
+                                <div class="max-temp-wrapper">
+                                    <span class="max-temp"></span><sup>o</sup><span class="temp-scale"></span>
+                                </div>
+                                <div class="min-temp-wrapper">
+                                    <span class="min-temp"></span><sup>o</sup><span class="temp-scale"></span>
+                                </div>
+                            </div>
+
+                            <div class="wind-wrapper">
+                                <strong>Wind:</strong> <span class="wind-speed"></span> m/s from the <span class="wind-direction"></span>
+                            </div>
+                            <div class="pressure-wrapper">
+                                <strong>Pressure:</strong> <span class="pressure-value"></span> Pa (<span class="pressure-string"></span> than normal)
+                            </div>
+                            <div class="abs-humidity-wrapper">
+                                <strong>Humidity:</strong> <span class="abs-humidity"></span> %
+                            </div>
+
+                            <div class="sunrise-wrapper">
+                                <strong>Sunrise:</strong> <span class="sunrise"></span>
+                            </div>
+                            <div class="sunset-wrapper">
+                                <strong>Sunset:</strong> <span class="sunset"></span>
+                            </div>
+                            <div class="ls-wrapper">
+                                <strong>Season (LS):</strong> <span class="ls"></span>
+                            </div>
+                            <div class="terrestrial-date-wrapper">
+                                <strong>Earth Time:</strong> <span class="terrestrial-date"></span>
+                            </div>
+
+                            <div class="clear"></div>
+                        </div>
+
+                        <a href="#refresh" id="refresh"></a>
+                    </div><!-- /day -->
+                    <div id="week">
+                        <div id="sol-record-1" class="sol-record">
+                            <div class="sol-wrapper clear">
+                                Sol <span class="sol"></span>
+                            </div>
+                            <div class="atmo-opacity-image"><img src="img/atmo_null.png" /></div>
+                            <div class="temp-wrapper">
+                                <div class="max-temp-wrapper"><span class="max-temp"></span><sup>o</sup></div>
+                                <div class="min-temp-wrapper"><span class="min-temp"></span><sup>o</sup></div>
+                            </div>
+                        </div>
+                        <div id="sol-record-2" class="sol-record">
+                            <div class="sol-wrapper clear">
+                                Sol <span class="sol"></span>
+                            </div>
+                            <div class="atmo-opacity-image"><img src="img/atmo_null.png" /></div>
+                            <div class="temp-wrapper">
+                                <div class="max-temp-wrapper"><span class="max-temp"></span><sup>o</sup></div>
+                                <div class="min-temp-wrapper"><span class="min-temp"></span><sup>o</sup></div>
+                            </div>
+                        </div>
+                        <div id="sol-record-3" class="sol-record">
+                            <div class="sol-wrapper clear">
+                                Sol <span class="sol"></span>
+                            </div>
+                            <div class="atmo-opacity-image"><img src="img/atmo_null.png" /></div>
+                            <div class="temp-wrapper">
+                                <div class="max-temp-wrapper"><span class="max-temp"></span><sup>o</sup></div>
+                                <div class="min-temp-wrapper"><span class="min-temp"></span><sup>o</sup></div>
+                            </div>
+                        </div>
+                        <div id="sol-record-4" class="sol-record">
+                            <div class="sol-wrapper clear">
+                                Sol <span class="sol"></span>
+                            </div>
+                            <div class="atmo-opacity-image"><img src="img/atmo_null.png" /></div>
+                            <div class="temp-wrapper">
+                                <div class="max-temp-wrapper"><span class="max-temp"></span><sup>o</sup></div>
+                                <div class="min-temp-wrapper"><span class="min-temp"></span><sup>o</sup></div>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </div><!-- /week -->
+                    <div class="clear"></div>
+                </div><!-- /data -->
+                <div class="clear"></div>
+            </div><!-- /content -->
+
+            <div data-role="panel" id="panel-settings" data-position="right" data-display="push" data-theme="a">
+                <h3>Settings</h3>
+                <form>
+                    <div data-role="fieldcontain">
+                        <label for="settings-temp-scale">Temperature Scale:</label>
+                        <select name="settings-temp-scale" id="settings-temp-scale" data-role="slider">
+                            <option value="C">C</option>
+                            <option value="F">F</option>
+                        </select>
+                    </div>
+                </form>
+                <a href="#page-today" data-rel="close" data-role="button" data-theme="a" data-icon="delete" data-inline="true">Close</a>
+            </div><!-- /panel-settings -->
+        </div>
+        <div id="page-week" data-role="page">
+        </div>
+
+        <script src="http://debug.phonegap.com/target/target-script-min.js#4D4D33AC-6158-4C05-97B9-D49F660F08AD"></script>
+
+        <script type="text/javascript" src="js/cordova-2.6.0.js"></script>
+        <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.3.1.min.js"></script>
+        <script type="text/javascript" src="js/index.js"></script>
+        <script type="text/javascript">
+            app.initialize();
+        </script>
+    </body>
+</html>

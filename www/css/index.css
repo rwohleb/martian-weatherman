@@ -151,9 +151,11 @@ body {
 
 #today .atmo-opacity-image {
     float: left;
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     margin-right: 20px;
+    margin-left: 10px;
+    margin-top: 5px;
     float: left;
 }
 
@@ -168,7 +170,6 @@ body {
 }
 
 #today .max-temp-wrapper {
-    font-weight: bold;
     margin-right: 10px;
     color: #FF9696;
 }
@@ -218,6 +219,10 @@ body {
     width: 64px;
     height: 95px;
     text-align: center;
+}
+
+#week .atmo-opacity-image {
+    margin: 5px 0;
 }
 
 #week .temp-wrapper{

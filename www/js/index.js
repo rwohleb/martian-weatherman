@@ -88,7 +88,14 @@ var app = {
             var sunset  = app.data[i].sunset || '--';
 
             var atmo_opacity  = app.data[i].atmo_opacity || '--';
-            var atmo_opacity_img = 'http://cab.inta-csic.es/rems/images/' + atmo_opacity.replace(/[-_\s]/g,"_") + '.png';
+            var atmo_opacity_img = 'img/atmo_null.png';
+
+            if (atmo_opacity == 'Sunny') {
+                atmo_opacity_img = 'img/atmo_sunny.png';
+            }
+            if (atmo_opacity == 'Cloudy') {
+                atmo_opacity_img = 'img/atmo_cloudy.png';
+            }
 
             //
             // Now we need to format the date/time values to match the local phone settings.
@@ -119,10 +126,6 @@ var app = {
                     var which = i;
                     $('#sol-record-' + which + ' .sunset').text(date.value);
                 }, function() {}, {formatLength:'full', selector:'date and time'});
-            }
-
-            if (atmo_opacity == '--') {
-                atmo_opacity_img = 'img/atmo_null.png';
             }
 
             $('#sol-record-' + i + ' .terrestrial-date').text(terrestrial_date);

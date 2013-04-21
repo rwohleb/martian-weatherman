@@ -43,11 +43,12 @@ var app = {
         $('#data').slideUp();
         $('#loading').slideDown();
 
+        var yql = 'select * from xml where url="http://data.marsweather.com/rems_climate.xml" and itemPath="climate_report.record" | sort(field="record.sol") | reverse()';
+        var yql_uri = 'http://query.yahooapis.com/v1/public/yql?q=' + encodeURIComponent(yql) + '&format=json&callback=?';
+
         $.ajax({
-            //dataType: "xml",
-            //url: "http://cab.inta-csic.es/rems/rems_weather.xml",
             dataType: "json",
-            url: "http://marsweather.ingenology.com/v1/archive/",
+            url: yql_uri,
             timeout: 2000,
             success: app.onAjaxData,
             error: app.onAjaxError
@@ -62,34 +63,49 @@ var app = {
         $('#data').slideDown();
 
         console.log(app.data.length);
-        for (var i=0; i<app.data.length; i++) {
+        // We are just going to get the last 5
+        for (var i=0; i<5; i++) {
+            console.log(app.data[i]);
+
             var terrestrial_date = app.data[i].terrestrial_date || '--';
             var sol = app.data[i].sol || '--';
-            var ls = app.data[i].ls || '--';
+            var ls = app.data[i].magnitudes.ls || '--';
 
             var temp_scale = window.localStorage.getItem("settings_temp_scale") || 'C';
 
-            var min_temp = app.data[i].min_temp || '--';
-            var max_temp = app.data[i].max_temp || '--';
+            var min_temp = app.data[i].magnitudes.min_temp || '--';
+            var max_temp = app.data[i].magnitudes.max_temp || '--';
             if (temp_scale == 'F') {
-                min_temp = app.data[i].min_temp_fahrenheit || '--';
-                max_temp = app.data[i].max_temp_fahrenheit || '--';
+                if (min_temp != '--') {
+                    min_temp = ((parseFloat(min_temp) * 1.8) + 32).toFixed(2);
+                }
+                if (max_temp != '--') {
+                    max_temp = ((parseFloat(max_temp) * 1.8) + 32).toFixed(2);
+                }
+            }
+            else {
+                if (min_temp != '--') {
+                    min_temp = parseFloat(min_temp).toFixed(2);
+                }
+                if (max_temp != '--') {
+                    max_temp = parseFloat(max_temp).toFixed(2);
+                }
             }
 
-            var pressure_value  = app.data[i].pressure || '--';
-            var pressure_string  = app.data[i].pressure_string || '--';
+            var pressure_value  = app.data[i].magnitudes.pressure || '--';
+            var pressure_string  = app.data[i].magnitudes.pressure_string || '--';
 
-            var abs_humidity  = app.data[i].abs_humidity || '--';
+            var abs_humidity  = app.data[i].magnitudes.abs_humidity || '--';
 
-            var wind_speed  = app.data[i].wind_speed || '--';
-            var wind_direction  = app.data[i].wind_direction || '--';
+            var wind_speed  = app.data[i].magnitudes.wind_speed || '--';
+            var wind_direction  = app.data[i].magnitudes.wind_direction || '--';
 
-            var season  = app.data[i].season || '--';
+            var season  = app.data[i].magnitudes.season || '--';
 
-            var sunrise  = app.data[i].sunrise || '--';
-            var sunset  = app.data[i].sunset || '--';
+            var sunrise  = app.data[i].magnitudes.sunrise || '--';
+            var sunset  = app.data[i].magnitudes.sunset || '--';
 
-            var atmo_opacity  = app.data[i].atmo_opacity || '--';
+            var atmo_opacity  = app.data[i].magnitudes.atmo_opacity || '--';
             var atmo_opacity_img = 'img/atmo_null.png';
 
             if (atmo_opacity == 'Sunny') {
@@ -107,14 +123,15 @@ var app = {
 
                 // The date object got a date like 2013-04-03, but then assumes it's local tz.
                 // Now we need to create a new date object adjusted to GMT.
-                var diff = terrestrial_date_obj.getTimezoneOffset();
-                var terrestrial_date_obj_adj = new Date(terrestrial_date_obj.getTime() + diff*60000);
+                //var diff = terrestrial_date_obj.getTimezoneOffset();
+                //var terrestrial_date_obj_adj = new Date(terrestrial_date_obj.getTime() + diff*60000);
 
-                navigator.globalization.dateToString(terrestrial_date_obj_adj, function(date) {
+                navigator.globalization.dateToString(terrestrial_date_obj, function(date) {
                     var which = i;
                     $('#sol-record-' + which + ' .terrestrial-date').text(date.value);
                 }, function() {}, {formatLength:'short', selector:'date'});
             }
+            /*
             if (sunrise != '--') {
                 var sunrise_obj = new Date(sunrise);
                 navigator.globalization.dateToString(sunrise_obj, function(date) {
@@ -129,6 +146,7 @@ var app = {
                     $('#sol-record-' + which + ' .sunset').text(date.value);
                 }, function() {}, {formatLength:'full', selector:'date and time'});
             }
+            */
 
             $('#sol-record-' + i + ' .terrestrial-date').text(terrestrial_date);
             $('#sol-record-' + i + ' .sol').text(sol);
@@ -144,6 +162,8 @@ var app = {
             $('#sol-record-' + i + ' .season').text(season);
             $('#sol-record-' + i + ' .atmo-opacity-image img').attr('src', atmo_opacity_img);
             $('#sol-record-' + i + ' .atmo-opacity-string').text(atmo_opacity);
+            $('#sol-record-' + i + ' .sunrise').text(sunrise);
+            $('#sol-record-' + i + ' .sunset').text(sunset);
         }
     },
 
@@ -185,7 +205,9 @@ var app = {
         console.log('onAjaxData');
         console.log(data);
 
-        app.data = data.results;
+        app.data = data.query.results.record;
+        console.log(app.data);
+
         app.renderData();
 
         // Refresh the data no faster than every 10 minutes

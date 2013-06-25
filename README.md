@@ -9,5 +9,7 @@ Martian Weatherman is designed to show a familiar weather display. In this case 
 
 This is an HTML5 application compiled in PhoneGap. The initial target is the iPhone, but iPad may be included in initial release. Android and other platforms can easily come later, thanks to PhoneGap.
 
+This app was written as part of the 2013 [International Space Apps Challenge](http://spaceappschallenge.org/), which took place over the course of April 20-21. There is a matching [project page](http://spaceappschallenge.org/project/martian-weatherman/) on that site.
+
 Copyright 2013 Robert Wohleb
 Licensed under GPLv3
